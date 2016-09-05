@@ -2,20 +2,53 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.reradio"
-        minSdkVersion 21
-        targetSdkVersion 24
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
     }
+
+    def privatePropFile = rootProject.file('private.properties')
+    def Properties privateProps = new Properties()
+
+    if (privatePropFile.canRead()) {
+        privateProps.load(new FileInputStream(privatePropFile))
+    }
+
     buildTypes {
+
+        debug {
+            buildConfigField "String", "DEV_KEY", privateProps['DEV_KEY']
+            applicationIdSuffix ".d"
+            versionNameSuffix "-debug"
+        }
+
         release {
+            buildConfigField "String", "DEV_KEY", privateProps['DEV_KEY']
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                output.outputFile = new File(
+                        output.outputFile.parent,
+                        output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
+            }
+        }
+
+        productFlavors {
+            free {
+                applicationId "com.explicit.free"
+            }
+
+            paid {
+                applicationId "com.explicit.paid"
+            }
         }
     }
     compileOptions {
@@ -31,6 +64,7 @@ android {
         maxProcessCount 4 // this is the default value
         javaMaxHeapSize "2g"
     }
+
 }
 
 dependencies {
