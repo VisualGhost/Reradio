@@ -18,7 +18,7 @@ android {
     if (privatePropFile.canRead()) {
         privateProps.load(new FileInputStream(privatePropFile))
     } else {
-        privateProps['DEV_KEY'] = 0
+        privateProps['DEV_KEY'] = "0"
     }
 
     buildTypes {
