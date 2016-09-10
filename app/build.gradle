@@ -21,6 +21,32 @@ android {
         privateProps['DEV_KEY'] = "\"0\""
     }
 
+    def signingPropFile = rootProject.file('signing.properties')
+    def Properties signingProps = new Properties()
+
+    if (signingPropFile.canRead()) {
+
+        signingProps.load(new FileInputStream(signingPropFile))
+
+        signingConfigs {
+            release {
+                storeFile rootProject.file('release.keystore')
+                keyAlias signingProps['KEY_ALIAS']
+                storePassword signingProps['STORE_PASSWORD']
+                keyPassword signingProps['KEY_PASSWORD']
+            }
+        }
+    } else {
+        signingConfigs {
+            release {
+                storeFile rootProject.file('default-release.keystore')
+                keyAlias "default-release"
+                storePassword "123456"
+                keyPassword "123456"
+            }
+        }
+    }
+
     buildTypes {
 
         debug {
@@ -33,6 +59,7 @@ android {
             buildConfigField "String", "DEV_KEY", privateProps['DEV_KEY']
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
 
         applicationVariants.all { variant ->
