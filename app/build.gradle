@@ -20,6 +20,7 @@ android {
         privateProps.load(new FileInputStream(privatePropFile))
     } else {
         privateProps['DEV_KEY'] = "\"0\""
+        privateProps['BASE_URL'] = "\"0\""
     }
 
     def signingPropFile = rootProject.file('signing.properties')
