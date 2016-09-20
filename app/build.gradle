@@ -51,15 +51,11 @@ android {
     buildTypes {
 
         debug {
-            buildConfigField "String", "DEV_KEY", privateProps['DEV_KEY']
-            buildConfigField "String", "BASE_URL", privateProps['BASE_URL']
             applicationIdSuffix ".d"
             versionNameSuffix "-debug"
         }
 
         release {
-            buildConfigField "String", "DEV_KEY", privateProps['DEV_KEY']
-            buildConfigField "String", "BASE_URL", privateProps['BASE_URL']
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
@@ -71,6 +67,11 @@ android {
                         output.outputFile.parent,
                         output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
             }
+        }
+
+        applicationVariants.all { variant ->
+            variant.buildConfigField "String", "DEV_KEY", privateProps['DEV_KEY']
+            variant.buildConfigField "String", "BASE_URL", privateProps['BASE_URL']
         }
 
         productFlavors {
