@@ -2,13 +2,13 @@ package com.reradio;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.reradio.controllers.ApiClientController;
 import com.reradio.controllers.ApiClientControllerImpl;
 import com.reradio.di.InjectHelper;
 import com.reradio.networking.ApiInterface;
 import com.reradio.networking.data.Station;
+import com.utils.DebugLogger;
 
 import java.util.List;
 
@@ -17,6 +17,7 @@ import javax.inject.Inject;
 
 public class MainActivity extends Activity {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private static final String FORMAT = "json";
 
     @Inject
@@ -33,7 +34,9 @@ public class MainActivity extends Activity {
         mApiClientController.setStationListener(new ApiClientController.StationListener() {
             @Override
             public void onStations(List<Station> stationList) {
-                // stations are here
+                for(Station station: stationList){
+                    DebugLogger.d(TAG, station.getName());
+                }
             }
 
             @Override
@@ -41,7 +44,7 @@ public class MainActivity extends Activity {
 
             }
         });
-        mApiClientController.search("frisky");
+        mApiClientController.search("BBC");
     }
 
 }
