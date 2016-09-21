@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="swipe_refresh_list" type="id"/>
+    <item name="recycler_view" type="id"/>
+    <item name="station_icon" type="id"/>
+    <item name="track_name" type="id"/>
+    <item name="station_name" type="id"/>
+</resources>

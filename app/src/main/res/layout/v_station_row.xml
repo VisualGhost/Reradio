@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tool="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/station_row_vertical_padding"
+              android:paddingTop="@dimen/station_row_vertical_padding"
+    >
+
+    <ImageView
+        android:id="@id/station_icon"
+        android:layout_width="@dimen/station_icon_width_height"
+        android:layout_height="@dimen/station_icon_width_height"
+        android:layout_margin="@dimen/station_icon_margin"
+        android:src="@drawable/ic_wifi_tethering_black_24dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/station_text_block_vertical_padding"
+        android:paddingTop="@dimen/station_text_block_vertical_padding"
+        >
+
+        <TextView
+            android:id="@id/track_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/name_margin_left_start"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            tool:text="@string/lorem_ipsum"
+            />
+
+        <TextView
+            android:id="@id/station_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/name_margin_left_start"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            tool:text="@string/dico_assum"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
