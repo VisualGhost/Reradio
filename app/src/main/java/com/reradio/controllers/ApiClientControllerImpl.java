@@ -3,17 +3,21 @@ package com.reradio.controllers;
 import com.reradio.networking.ApiInterface;
 import com.reradio.networking.data.Station;
 import com.reradio.networking.data.StationResponse;
+import com.utils.DebugLogger;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Response;
 import rx.Observable;
-import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class ApiClientControllerImpl implements ApiClientController {
+
+    private static final String TAG = ApiClientControllerImpl.class.getSimpleName();
+    private static final long TIME_OUT = 20000;
 
     private final ApiInterface mApiInterface;
     private final String mDevKey;
@@ -38,29 +42,32 @@ public class ApiClientControllerImpl implements ApiClientController {
                 getStationList(mDevKey, searchQuery, mFormat)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .timeout(TIME_OUT, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
                 .filter(stationResponseResponse -> stationResponseResponse != null
                         && stationResponseResponse.body() != null
                         && stationResponseResponse.body().getResponse() != null
                         && stationResponseResponse.body().getResponse().getData() != null &&
                         stationResponseResponse.body().getResponse().getData().getStationList() != null);
-        mSubscription = responseObservable.subscribe(new Subscriber<Response<StationResponse>>() {
-            @Override
-            public void onCompleted() {
-                // empty
-            }
 
-            @Override
-            public void onError(Throwable e) {
-                // empty
-            }
 
-            @Override
-            public void onNext(Response<StationResponse> stationResponseResponse) {
-                if (mStationListener != null) {
-                    mStationListener.onStations(getResponseStations(stationResponseResponse));
-                }
-            }
-        });
+        mSubscription = responseObservable.subscribe(
+                stationResponseResponse -> {
+                    DebugLogger.d(TAG, "Response: " + stationResponseResponse);
+                    if (mStationListener != null) {
+                        DebugLogger.d(TAG, getResponseStations(stationResponseResponse));
+                        List<Station> stationList = getResponseStations(stationResponseResponse);
+                        if (stationList != null && stationList.size() > 0) {
+                            mStationListener.onStations(stationList);
+                        } else {
+                            mStationListener.onEmptyList(searchQuery);
+                        }
+                    }
+                },
+                throwable -> {
+                    if (mStationListener != null) {
+                        mStationListener.onError(throwable);
+                    }
+                });
     }
 
     private List<Station> getResponseStations(Response<StationResponse> stationResponseResponse) {

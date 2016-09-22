@@ -10,7 +10,9 @@ public interface ApiClientController {
 
         void onStations(List<Station> stationList);
 
-        void onError(String errorMessage);
+        void onError(Throwable e);
+
+        void onEmptyList(String searchQuery);
     }
 
     void setStationListener(StationListener stationListener);

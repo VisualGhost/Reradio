@@ -6,8 +6,6 @@ import java.util.List;
 
 public final class DebugLogger {
 
-    private static final String TAG = DebugLogger.class.getSimpleName();
-
     private static boolean sIsDebug;
 
     // private
@@ -29,23 +27,47 @@ public final class DebugLogger {
      */
     public static void enableLogging() {
         DebugLogger debugLogger = DebugLoggerHolder.sDebugLogger;
-        DebugLogger.d(TAG, debugLogger + " is enabled for logging");
+        DebugLogger.d(DebugLogger.class.getSimpleName(), debugLogger + " is enabled for logging");
     }
 
     private static final String NULL = "NULL";
 
     public static void d(String tag, String message) {
         if (sIsDebug) {
-            Log.d(tag, message != null ? message : NULL);
+            Log.d(getTag(tag), message != null ? message : NULL);
         }
     }
 
-    public static void d(String tag, List list) {
+    public static void d(String tag, Object o) {
+        if (sIsDebug) {
+            Log.d(getTag(tag), o != null ? o.toString() : NULL);
+        }
+    }
+
+    public static void e(String tag, List list) {
         if (list != null && list.size() != 0) {
             for (Object o : list) {
-                d(tag, o != null ? o.toString() : NULL);
+                e(getTag(tag), o != null ? o.toString() : NULL);
             }
+        } else {
+            e(getTag(tag), "List is " + NULL);
         }
+    }
+
+    public static void e(String tag, String message) {
+        if (sIsDebug) {
+            Log.e(getTag(tag), message != null ? message : NULL);
+        }
+    }
+
+    public static void e(String tag, Object o) {
+        if (sIsDebug) {
+            Log.e(getTag(tag), o != null ? o.toString() : NULL);
+        }
+    }
+
+    private static String getTag(String tag){
+        return String.format("%s : < "+tag+" >", DebugLogger.class.getSimpleName());
     }
 
 }

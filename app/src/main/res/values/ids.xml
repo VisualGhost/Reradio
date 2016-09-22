@@ -5,4 +5,9 @@
     <item name="station_icon" type="id"/>
     <item name="track_name" type="id"/>
     <item name="station_name" type="id"/>
+    <item name="recycler_switcher" type="id"/>
+    <item name="empty_view" type="id"/>
+    <item name="empty_view_icon" type="id"/>
+    <item name="empty_view_text_message" type="id"/>
+    <item name="list_station_view" type="id"/>
 </resources>

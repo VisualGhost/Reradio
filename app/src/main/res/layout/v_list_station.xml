@@ -1,0 +1,33 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@id/swipe_refresh_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ViewSwitcher
+            android:id="@id/recycler_switcher"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"/>
+
+            <com.reradio.views.EmptyStationViewImpl
+                android:id="@id/empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+
+        </ViewSwitcher>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</merge>

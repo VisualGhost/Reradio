@@ -7,4 +7,7 @@
     <dimen name="station_row_vertical_padding">3dp</dimen>
     <dimen name="station_icon_margin">5dp</dimen>
     <dimen name="station_text_block_vertical_padding">10dp</dimen>
+    <dimen name="empty_station_view_icon_size">48dp</dimen>
+    <dimen name="empty_station_view_icon_margin_bottom">30dp</dimen>
+    <dimen name="empty_station_view_message_text_left_right_margin">20dp</dimen>
 </resources>
