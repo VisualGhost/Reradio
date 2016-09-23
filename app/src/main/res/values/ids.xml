@@ -10,4 +10,5 @@
     <item name="empty_view_icon" type="id"/>
     <item name="empty_view_text_message" type="id"/>
     <item name="list_station_view" type="id"/>
+    <item name="main_activity_container" type="id"/>
 </resources>

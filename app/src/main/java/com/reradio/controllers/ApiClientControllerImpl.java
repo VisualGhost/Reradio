@@ -17,7 +17,7 @@ import rx.schedulers.Schedulers;
 public class ApiClientControllerImpl implements ApiClientController {
 
     private static final String TAG = ApiClientControllerImpl.class.getSimpleName();
-    private static final long TIME_OUT = 20000;
+    private static final long TIME_OUT = 20000;// 20 sec
 
     private final ApiInterface mApiInterface;
     private final String mDevKey;

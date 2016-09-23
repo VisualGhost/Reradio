@@ -1,6 +1,6 @@
 package com.reradio.di.dagger;
 
-import com.reradio.MainActivity;
+import com.reradio.StationListFragmentImpl;
 
 import javax.inject.Singleton;
 
@@ -10,6 +10,6 @@ import dagger.Component;
 @Component(modules = {ApiInterfaceModule.class})
 public interface RootComponent {
 
-    void inject(MainActivity activity);
+    void inject(StationListFragmentImpl stationListFragment);
 
 }
