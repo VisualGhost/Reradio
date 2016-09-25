@@ -27,6 +27,7 @@ public class ListStationViewImpl extends RelativeLayout implements ListStationVi
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ViewSwitcher mViewSwitcher;
     private EmptyStationView mEmptyStationView;
+    private OnRefreshListener mOnRefreshListener;
 
     public ListStationViewImpl(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -56,21 +57,64 @@ public class ListStationViewImpl extends RelativeLayout implements ListStationVi
                 (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics()));
         mSwipeRefreshLayout.setEnabled(false);
         mSwipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            if (mOnRefreshListener != null) {
+                mOnRefreshListener.onRefresh();
+                clearList();
+                showListIfEmptyViewVisible();
+            }
+        });
+    }
+
+    @Override
+    public void setOnRefreshListener(OnRefreshListener onRefreshListener) {
+        mOnRefreshListener = onRefreshListener;
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        DebugLogger.d(TAG, "onDetachedFromWindow");
+        mOnRefreshListener = null;
     }
 
     private void showRecyclerView() {
         stopRefreshing();
+        enableRefreshLayoutDraggable();
         showSwitcher();
     }
 
     private void showEmptyView() {
         stopRefreshing();
+        enableRefreshLayoutDraggable();
         showSwitcher();
         switchToEmptyView();
     }
 
     private void stopRefreshing() {
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    /**
+     * For dragging
+     */
+    private void enableRefreshLayoutDraggable() {
+        mSwipeRefreshLayout.setEnabled(true);
+    }
+
+    private void clearList() {
+        if (mRecyclerView != null) {
+            StationAdapter stationAdapter = (StationAdapter) mRecyclerView.getAdapter();
+            if (stationAdapter != null) {
+                stationAdapter.clear();
+            }
+        }
+    }
+
+    private void showListIfEmptyViewVisible() {
+        if (mViewSwitcher.getCurrentView().getId() == R.id.empty_view) {
+            mViewSwitcher.showPrevious();
+        }
     }
 
     private void showSwitcher() {

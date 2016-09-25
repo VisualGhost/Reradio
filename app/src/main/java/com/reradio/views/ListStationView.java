@@ -11,4 +11,6 @@ public interface ListStationView {
     void showMessageScreen(String searchQuery);
 
     void showErrorScreen(Throwable throwable);
+
+    void setOnRefreshListener(OnRefreshListener onRefreshListener);
 }

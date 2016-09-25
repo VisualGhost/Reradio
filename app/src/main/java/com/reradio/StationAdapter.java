@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.reradio.networking.data.Station;
 
+import java.util.Collections;
 import java.util.List;
 
 public class StationAdapter extends RecyclerView.Adapter<StationAdapter.ViewHolder> {
@@ -55,5 +56,10 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.ViewHold
             mStationName.setText(station.getName());
             mTrackName.setText(station.getCurrentTrack());
         }
+    }
+
+    public void clear() {
+        mStations = Collections.emptyList();
+        notifyDataSetChanged();
     }
 }
