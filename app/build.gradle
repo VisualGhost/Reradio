@@ -36,12 +36,12 @@ android {
         privateProps.load(new FileInputStream(privatePropFile))
     } else {
 
-        def devKey = "$System.env.API_RADIO_DEV_KEY"
-        if (devKey == null || devKey.isEmpty()) {
+        String devKey = "$System.env.API_RADIO_DEV_KEY"
+        if (devKey.equals('null')) {
             throw new GradleException("API DEV KEY is null!")
         }
-        def baseUrl = "$System.env.API_RADIO_BASE_URL"
-        if (baseUrl == null || baseUrl.isEmpty()) {
+        String baseUrl = "$System.env.API_RADIO_BASE_URL"
+        if (baseUrl.equals('null')) {
             throw new GradleException("API RADIO BASE URL is null!")
         }
 
