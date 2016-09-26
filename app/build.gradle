@@ -35,8 +35,18 @@ android {
     if (privatePropFile.canRead()) {
         privateProps.load(new FileInputStream(privatePropFile))
     } else {
-        privateProps['DEV_KEY'] = "\"0\""
-        privateProps['BASE_URL'] = "\"0\""
+
+        def devKey = "$System.env.API_RADIO_DEV_KEY"
+        if (devKey == null || devKey.isEmpty()) {
+            throw new GradleException("API DEV KEY is null!")
+        }
+        def baseUrl = "$System.env.API_RADIO_BASE_URL"
+        if (baseUrl == null || baseUrl.isEmpty()) {
+            throw new GradleException("API RADIO BASE URL is null!")
+        }
+
+        privateProps['DEV_KEY'] = devKey
+        privateProps['BASE_URL'] = baseUrl
     }
 
     def signingPropFile = rootProject.file('signing.properties')
@@ -138,4 +148,5 @@ dependencies {
     apt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
 
     compile project(path: ':utils')
+    compile project(path: ':billing')
 }
