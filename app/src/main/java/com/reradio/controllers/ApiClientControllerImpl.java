@@ -42,7 +42,7 @@ public class ApiClientControllerImpl implements ApiClientController {
                 getStationList(mDevKey, searchQuery, mFormat)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .timeout(TIME_OUT, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
+                //.timeout(TIME_OUT, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
                 .filter(stationResponseResponse -> stationResponseResponse != null
                         && stationResponseResponse.body() != null
                         && stationResponseResponse.body().getResponse() != null

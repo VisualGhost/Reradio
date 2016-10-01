@@ -38,6 +38,20 @@ public final class DebugLogger {
         }
     }
 
+    // Thread name is added
+    public static void dt(String tag, String message) {
+        if (sIsDebug) {
+            Log.d(getTag(tag), "[" + Thread.currentThread().getName() + "]" + message);
+        }
+    }
+
+    // Thread name is added
+    public static void dt(String tag, Object o) {
+        if (sIsDebug) {
+            Log.d(getTag(tag), "[" + Thread.currentThread().getName() + "]" + (o != null ? o.toString() : NULL));
+        }
+    }
+
     public static void d(String tag, Object o) {
         if (sIsDebug) {
             Log.d(getTag(tag), o != null ? o.toString() : NULL);
@@ -66,8 +80,8 @@ public final class DebugLogger {
         }
     }
 
-    private static String getTag(String tag){
-        return String.format("%s : < "+tag+" >", DebugLogger.class.getSimpleName());
+    private static String getTag(String tag) {
+        return String.format("%s : < " + tag + " >", DebugLogger.class.getSimpleName());
     }
 
 }
