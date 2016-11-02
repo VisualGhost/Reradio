@@ -11,11 +11,12 @@ import java.util.List;
 public class StationListPresenterImpl implements StationListPresenter {
 
     private static final String FORMAT = "json";
+    private static final String MEDIA_TYPE = "audio/mpeg";
 
     private ApiClientController mApiClientController;
 
     public StationListPresenterImpl(ListStationView listStationView, ApiInterface mApiInterface) {
-        mApiClientController = new ApiClientControllerImpl(mApiInterface, BuildConfig.DEV_KEY, FORMAT);
+        mApiClientController = new ApiClientControllerImpl(mApiInterface, BuildConfig.DEV_KEY, FORMAT, MEDIA_TYPE);
         mApiClientController.setStationListener(new ApiClientController.StationListener() {
             @Override
             public void onStations(List<Station> stationList) {

@@ -22,13 +22,15 @@ public class ApiClientControllerImpl implements ApiClientController {
     private final ApiInterface mApiInterface;
     private final String mDevKey;
     private final String mFormat;
+    private final String mMediaType;
     private StationListener mStationListener;
     private Subscription mSubscription;
 
-    public ApiClientControllerImpl(ApiInterface apiInterface, String devKey, String format) {
+    public ApiClientControllerImpl(ApiInterface apiInterface, String devKey, String format, String mediaType) {
         mApiInterface = apiInterface;
         mDevKey = devKey;
         mFormat = format;
+        mMediaType = mediaType;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class ApiClientControllerImpl implements ApiClientController {
     @Override
     public void search(String searchQuery) {
         Observable<Response<StationResponse>> responseObservable = mApiInterface.
-                getStationList(mDevKey, searchQuery, mFormat)
+                getStationList(mDevKey, searchQuery, mFormat, mMediaType)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 //.timeout(TIME_OUT, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())

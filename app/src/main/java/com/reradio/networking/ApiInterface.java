@@ -13,7 +13,8 @@ public interface ApiInterface {
     Observable<Response<StationResponse>> getStationList(
             @Query("k") String devKey,
             @Query("ct") String searchQuery,
-            @Query("f") String format
+            @Query("f") String format,
+            @Query("mt") String mediaType
     );
 
 }
