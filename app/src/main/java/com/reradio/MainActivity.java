@@ -10,7 +10,7 @@ import com.reradio.views.OnRefreshListener;
 import com.utils.DebugLogger;
 import com.utils.ViewUtils;
 
-
+// MainActivity
 public class MainActivity extends Activity implements OnSearchListener, OnRefreshListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
