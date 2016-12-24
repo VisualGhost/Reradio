@@ -17,6 +17,5 @@ public class CustomApplication extends Application {
             DebugLogger.enableLogging();
         }
     }
-
 }
 

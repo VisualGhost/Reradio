@@ -4,7 +4,7 @@
     <string name="no_results">Sorry! We haven\'t found any station that is playing %s</string>
     <string name="unknown_host_exception">Please, check internet connection</string>
     <string name="unknown_error">Unknown error</string>
-    <string name="input_form_hint">Iron Maiden</string>
+    <string name="input_form_hint">Search music</string>
     <string name="search">Search</string>
     <string name="input_search_error">The length must be > 1.</string>
 </resources>
