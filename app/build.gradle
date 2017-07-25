@@ -44,6 +44,12 @@ android {
         if (baseUrl.equals('null')) {
             throw new GradleException("API RADIO BASE URL is null!")
         }
+        
+        try{
+        print "$TOKEN"
+        }catch(Exception e){
+        print e.toString()
+        }
 
         privateProps['DEV_KEY'] = devKey
         privateProps['BASE_URL'] = baseUrl
