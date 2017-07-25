@@ -30,7 +30,6 @@ android {
     }
 
     try{
-        println "Custom user property value is 2 $env.TOKEN"
             println "Custom user property value is 3 $System.env.TOKEN"
                 println "Custom user property value is 4 $Teamcity.env.TOKEN"
                 
