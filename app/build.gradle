@@ -32,7 +32,10 @@ android {
     try{
         println "Custom user property value is 2 $env.TOKEN"
             println "Custom user property value is 3 $System.env.TOKEN"
-                println "Custom user property value is 4 $Teamcity.env.TOKEN"}catch(Exception e){plintln e.toString()}
+                println "Custom user property value is 4 $Teamcity.env.TOKEN"
+                
+                
+    }catch(Exception e){plintln "ERROR"+e}
 
     def privatePropFile = rootProject.file('private.properties')
     def Properties privateProps = new Properties()
