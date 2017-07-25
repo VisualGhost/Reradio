@@ -29,6 +29,11 @@ android {
         throw new GradleException("Could not read version.properties!")
     }
 
+    println "Custom user property value is 1 $TOKEN"
+        println "Custom user property value is 2 $env.TOKEN"
+            println "Custom user property value is 3 $System.env.TOKEN"
+                println "Custom user property value is 4 $Teamcity.env.TOKEN"
+
     def privatePropFile = rootProject.file('private.properties')
     def Properties privateProps = new Properties()
 
@@ -43,12 +48,6 @@ android {
         String baseUrl = "$System.env.API_RADIO_BASE_URL"
         if (baseUrl.equals('null')) {
             throw new GradleException("API RADIO BASE URL is null!")
-        }
-        
-        try{
-        print "$TOKEN"
-        }catch(Exception e){
-        print e.toString()
         }
 
         privateProps['DEV_KEY'] = devKey
