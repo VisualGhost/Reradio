@@ -29,11 +29,6 @@ android {
         throw new GradleException("Could not read version.properties!")
     }
 
-    try{
-            println "----------------------Custom user property value is 3 $System.env.TOKEN"                
-                
-    }catch(Exception e){plintln "ERROR"+e}
-
     def privatePropFile = rootProject.file('private.properties')
     def Properties privateProps = new Properties()
 
